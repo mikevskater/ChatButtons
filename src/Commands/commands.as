@@ -56,7 +56,7 @@ class commands
         
     }
 
-    void addCommand(string name, string description, string type, string value)
+    void addCommand(const string &in name, const string &in description, const string &in  type, const string &in  value)
     {
         Json::Value@ command = Json::Object();
         command["name"] = name;
@@ -66,7 +66,7 @@ class commands
         availableCommands.InsertLast(command);
     }
 
-    void addCommand(string name, string description, string type, int value)
+    void addCommand(const string &in  name, const string &in  description, const string &in  type, int value)
     {
         Json::Value@ command = Json::Object();
         command["name"] = name;
@@ -76,7 +76,7 @@ class commands
         availableCommands.InsertLast(command);
     }
 
-    void addCommand(string name, string description, int type, string value)
+    void addCommand(const string &in  name, const string &in  description, int type, const string &in  value)
     {
         Json::Value@ command = Json::Object();
         command["name"] = name;
@@ -86,7 +86,7 @@ class commands
         availableCommands.InsertLast(command);
     }
 
-    void addCommand(string name, string description, int type, int value)
+    void addCommand(const string &in  name, const string &in  description, int type, int value)
     {
         Json::Value@ command = Json::Object();
         command["name"] = name;
@@ -102,7 +102,7 @@ class commands
         return availableCommands;
     }
 
-    string ParseCommand(string msg)
+    string ParseCommand(const string &in  msg)
     {
         //print("ParseCommand: " + msg);
         for (uint i = 0; i < availableCommands.Length; i++)

@@ -378,7 +378,7 @@ class MacroButton: Settings
         return data;
     }
 
-    void From_String(string json)
+    void From_String(const string &in json)
     {
         // Convert the Json string to the object
         Json::Value data = Json::Parse(json);        
@@ -386,7 +386,9 @@ class MacroButton: Settings
     }
 
     void From_Json(Json::Value@ data){
-        print("Loading Button From_Json: " + Json::Write(data));
+        if (Meta::IsDeveloperMode()){            
+            print("Loading Button From_Json: " + Json::Write(data));
+        }
         this.pos_x = data["x"];
         this.pos_y = data["y"];
         this.size_w = data["w"];
@@ -408,7 +410,6 @@ class MacroButton: Settings
         this.color_bg = vec4(x,y,z,w);
 
         d = data["fg"];
-        print(Json::Write(d));
         x = d["x"];
         y = d["y"];
         z = d["z"];

@@ -5,7 +5,7 @@ class NadeoCode{
 
     NadeoCode(){}
 
-    NadeoCode(string code, string name, string description){
+    NadeoCode(const string &in code, const string &in name, const string &in description){
         this.code = code;
         this.name = name;
         this.description = description;
@@ -41,7 +41,7 @@ class NadeoCodes{
         addNadeoCode("$$", "Escape the $ symbol.", "Give me some $$ becomes Give me some $");
     }
 
-    void addNadeoCode(string code, string name, string description){
+    void addNadeoCode(const string &in code, const string &in name, const string &in description){
         NadeoCode newCode = NadeoCode(code, name, description);
         codes.InsertLast(newCode);
     }

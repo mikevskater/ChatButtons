@@ -1,6 +1,6 @@
 
 
-string rollCommand(string msg)
+string rollCommand(const string &in msg)
 {
     string cmd = msg.Replace("/roll ", "").Trim();
     print("RollCommand: " + cmd);
@@ -13,8 +13,8 @@ string rollCommand(string msg)
     }
     int output = Math::Rand(1, roll);
     // Color the output from red to green based on the perfect roll of the max value.
-    string R = colors.color_characters[Math::Clamp(Math::Round((1 - (float(output) / float(roll))) * 15), 0, 15)];
-    string G = colors.color_characters[Math::Clamp(Math::Round((float(output) / float(roll)) * 15), 0, 15)];
+    string R = colors.color_characters[Math::Clamp(int(Math::Round((1 - (float(output) / float(roll)))) * 15), 0, 15)];
+    string G = colors.color_characters[Math::Clamp(int(Math::Round((float(output) / float(roll)) * 15)), 0, 15)];
     string B = "0";
     if (output == roll)
     {

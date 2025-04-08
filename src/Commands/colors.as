@@ -73,7 +73,7 @@ class NadeoColors
             this.color_grid_fonts.InsertLast(row_fonts);
         }
     }
-    string GetColorCode(int x, int y)
+    string GetColorCode(uint x, uint y)
     {
         if(x < 0 || x >= this.color_grid_codes[y].Length || y < 0 || y >= this.color_grid_codes.Length)
         {
@@ -81,7 +81,7 @@ class NadeoColors
         }
         return this.color_grid_codes[y][x];
     }
-    vec4 GetColor(int x, int y)
+    vec4 GetColor(uint x, uint y)
     {
         if(x < 0 || x >= this.color_grid_colors[y].Length || y < 0 || y >= this.color_grid_colors.Length)
         {
@@ -89,7 +89,7 @@ class NadeoColors
         }
         return this.color_grid_colors[y][x];
     }
-    vec4 GetFontColor(int x, int y)
+    vec4 GetFontColor(uint x, uint y)
     {
         if(x < 0 || x >= this.color_grid_fonts[y].Length || y < 0 || y >= this.color_grid_fonts.Length)
         {

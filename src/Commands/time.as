@@ -7,7 +7,7 @@ class tZone{
         name = "";
         offset = 0;
     }
-    tZone(string code, string name, float offset){
+    tZone(const string &in code, const string &in name, float offset){
         this.code = code;
         this.name = name;
         this.offset = offset;
@@ -273,12 +273,12 @@ class tZones{
         addZone("YAKT", "Yakutsk Time", 9);
         addZone("YEKT", "Yekaterinburg Time", 5);
     }
-    void addZone(string code, string name, float offset){
+    void addZone(string &in code, string &in name, float offset){
         tZone@ zone = tZone(code, name, offset);
         timeZones.InsertLast(zone);
     }
 
-    tZone getZone(string name){
+    tZone getZone(const string &in name){
         for (uint i = 0; i < timeZones.Length; i++){
             if (timeZones[i].code == name.ToUpper().Trim()){
                 return timeZones[i];
@@ -292,9 +292,8 @@ class tZones{
 }
 tZones zones = tZones();
 
-string timeCommand(int type, string msg){
-    print("Type: " + type);
-    print("Msg: " + msg);
+string timeCommand(int type, const string &in _msg){
+    string msg = _msg;
     string t;
     string extra;
     if (type == CommandTypes::TimeCommand::LOCAL) {
