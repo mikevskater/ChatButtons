@@ -1,0 +1,8 @@
+[meta]
+name = "Chat Macro Buttons"
+author = "MikeVSkater"
+category = "Utilities"
+version = "0.0.1"
+
+[script]
+optional_dependencies = [ "NadeoServices" ]
