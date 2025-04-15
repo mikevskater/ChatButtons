@@ -23,7 +23,7 @@ string rollCommand(const string &in msg)
         B = "0";
     }
 
-    return "$bbbRolling a number between 1 and " + tostring(roll) + ":$z $" + R + G + B + output + "$z";
+    return "$bbbRolling a number between 1 and " + tostring(roll) + ": $" + R + G + B + output;
 }
 
 

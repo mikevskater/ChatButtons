@@ -1,18 +1,4 @@
-const array<string> medals = {
-	"\\$444" + Icons::Circle, // no medal
-	"\\$964" + Icons::Circle, // bronze medal
-	"\\$899" + Icons::Circle, // silver medal
-	"\\$db4" + Icons::Circle, // gold medal
-#if TMNEXT||MP4
-	"\\$071" + Icons::Circle, // author medal
-#elif TURBO
-	"\\$0f1" + Icons::Circle, // trackmaster medal
-	"\\$964" + Icons::Circle, // super bronze medal
-	"\\$899" + Icons::Circle, // super silver medal
-	"\\$db4" + Icons::Circle, // super gold medal
-	"\\$0ff" + Icons::Circle, // super trackmaster medal
-#endif
-};
+const array<string> medalColors = {"$444","$964","$899","$db4","$071","$0f1","$964","$899","$db4","$0ff"};
 
 string goalCommand(int type){
 	auto app = cast<CTrackMania>(GetApp());
@@ -52,25 +38,27 @@ string goalCommand(int type){
             pbmedal = scoreMgr.Map_GetMedal(userId, map.MapInfo.MapUid, "PersonalBest", "", "TimeAttack", "");
         }
         if (pbmedal == 0) {
-            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> (No medal)";
+            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> (No Finish)";
         } else {
-            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> (" + medals[pbmedal] + ")";
+            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> ($<" + medalColors[pbmedal] + Icons::Circle + "$>)";
         }
         return msg;
     }
 #endif
 
     switch (type) {
-        case 0: msg = "$<$964" + Icons::Trophy + "$> Bronze medal: $bbb" + Time::Format(map.TMObjective_BronzeTime); break;
-        case 1: msg = "$<$899" + Icons::Trophy + "$> Silver medal: $bbb" + Time::Format(map.TMObjective_SilverTime); break;
-        case 2: msg = "$<$db4" + Icons::Trophy + "$> Gold medal: $bbb"   + Time::Format(map.TMObjective_GoldTime); break;
-        case 3: msg = "$<$071" + Icons::Trophy + "$> Author medal: $bbb" + Time::Format(map.TMObjective_AuthorTime); break;
+        case 0: msg = "$<$964" + Icons::Trophy + "$> Bronze Medal: $bbb" + Time::Format(map.TMObjective_BronzeTime); break;
+        case 1: msg = "$<$899" + Icons::Trophy + "$> Silver Medal: $bbb" + Time::Format(map.TMObjective_SilverTime); break;
+        case 2: msg = "$<$db4" + Icons::Trophy + "$> Gold Medal: $bbb"   + Time::Format(map.TMObjective_GoldTime); break;
+        case 3: msg = "$<$071" + Icons::Trophy + "$> Author Medal: $bbb" + Time::Format(map.TMObjective_AuthorTime); break;
     }
 
     return msg;
 }
 
 #if TMNEXT && DEPENDENCY_NADEOSERVICES
+    // WR Code used from tm-better-chat plugin adjusted to send the message directly to the chat
+    // https://github.com/codecat/tm-better-chat
 	void RunWorldRecordAsync()
 	{
         auto app = cast<CTrackMania>(GetApp());
@@ -115,7 +103,7 @@ string goalCommand(int type){
 		int wrTime = jsWr["score"];
 		string wrDisplayName = NadeoServices::GetDisplayNameAsync(wrAccountId);
 
-		string msg = "$<$db0" + Icons::Bullseye + "$> World record: $<$bbb" + Time::Format(wrTime) + "$> by $bbb" + wrDisplayName;
+		string msg = "$<$db0" + Icons::Bullseye + "$> World Record: $<$bbb" + Time::Format(wrTime) + "$> by $bbb" + wrDisplayName;
 
         CSmArenaClient@ playground = cast<CSmArenaClient>(cast<CTrackMania>(GetApp()).CurrentPlayground);
         CGamePlaygroundInterface@ playgroundInterface = cast<CGamePlaygroundInterface>(playground.Interface);
@@ -138,7 +126,7 @@ string mapInfo(int type){
         case 1: return "$<$db0" + Icons::Map + "$> Map Name: $bbb" + map.MapInfo.Name;
         case 2: return "$<$db0" + Icons::Map + "$> Map Author: $bbb" + Text::StripFormatCodes(map.MapInfo.AuthorNickName);
         case 3: return "$<$db0" + Icons::Map + "$> Map Name and ID: $bbb" + map.MapInfo.Name + " ("+ uid+ ")";
-        case 4: return "$<$db0" + Icons::Map + "$> TMIO link: $l[https://trackmania.io/#/leaderboard/" + uid + "]" + Text::StripFormatCodes(map.MapInfo.Name) + "$l";        
+        case 4: return "$<$db0" + Icons::Map + "$> TMIO Link: $l[https://trackmania.io/#/leaderboard/" + uid + "]" + Text::StripFormatCodes(map.MapInfo.Name) + "$l";        
     }
     return "";
 }
