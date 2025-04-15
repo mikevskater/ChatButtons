@@ -599,6 +599,7 @@ namespace UI_Settings{
                             // Copy the color code to the clipboard
                             IO::SetClipboard(code);
                         }
+                        UI::SetItemTooltip("Click to copy the color code: " + code);
                         UI::PopStyleColor(4);
                     }                    
                 }
@@ -609,7 +610,7 @@ namespace UI_Settings{
 
         UI::EndGroup();
     }
-    
+    string current_search = "";
     [SettingsTab name="Icon List" icon="QuestionCircleO" category="Icon List" order="2"]
     void RenderIconInfo()
     {
@@ -621,17 +622,25 @@ namespace UI_Settings{
             "\\$888(EXPAND SETTINGS WINDOW TO SEE THE ICONS)\n"
         );
         UI::BeginGroup();
+        UI::Text("Search Icons:");
+        UI::SameLine();
+        current_search = UI::InputText("##search", current_search, 200);
+        current_search = current_search.Trim().ToUpper();
         if (UI::BeginTable("Icon List", 18, UI::TableFlags::BordersInner))
         {
-            for (uint i = 0; i < icons.ascii_icons.Length; i++)
+            // TODO: Seperate icon and name.
+            for (uint i = 0; i < icons.ascii_icons.Length; i += 2) 
             {
+                if (current_search != "" && !icons.ascii_icons[i+1].ToUpper().Contains(current_search)) {
+                    continue;
+                }
                 UI::TableNextColumn();
                 if (UI::Button(icons.ascii_icons[i] + "##" + i, vec2(35, 35)))
                 {
                     // Copy the icon to the clipboard
                     IO::SetClipboard(icons.ascii_icons[i]);
                 }
-                UI::SetItemTooltip("Click to copy the icon: " + icons.ascii_icons[i]);
+                UI::SetItemTooltip("Click to copy the icon " + icons.ascii_icons[i+1] + ": " + icons.ascii_icons[i]);
             }
             UI::EndTable();
         }
