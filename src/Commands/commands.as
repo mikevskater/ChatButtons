@@ -144,25 +144,19 @@ class commands
                 {
                     case CommandTypes::CommandType::GOAL:
                         formattedMessage = FormattedGoalCommand(value);
-                        isCommand = true;
                         break;
                     case CommandTypes::CommandType::TIME:
                         formattedMessage = FormattedTimeCommand(value, msg);
-                        isCommand = true;
                         break;
                     case CommandTypes::CommandType::MAPINFO:
                         formattedMessage = FormattedMapInfo(value);
-                        isCommand = true;
                         break;
                     case CommandTypes::CommandType::ROLL:
                         formattedMessage = FormattedRollCommand(msg);
-                        isCommand = true;
                         break;
                 }
-                if (isCommand)
-                {
-                    break;
-                }
+                isCommand = true;
+                break;
             }
         }
         if (!isCommand)

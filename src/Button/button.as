@@ -30,6 +30,7 @@ class MacroButton: Settings
     void SetPosX(float pos_x)
     {
         this.pos_x = pos_x;
+        this.UpdateButtonSize();
     }
 
     void AdjPosX(float pos_x)
@@ -62,6 +63,7 @@ class MacroButton: Settings
     void SetPosY(float pos_y)
     {
         this.pos_y = pos_y;
+        this.UpdateButtonSize();
     }
 
     float GetPosY()
@@ -73,12 +75,14 @@ class MacroButton: Settings
     {
         this.pos_x = x;
         this.pos_y = y;
+        this.UpdateButtonSize();
     }
 
     void SetPos(vec2 pos)
     {
         this.pos_x = pos.x;
         this.pos_y = pos.y;
+        this.UpdateButtonSize();
     }
 
     bool IsOverlapping(MacroButton@ button)
@@ -113,6 +117,7 @@ class MacroButton: Settings
     void SetSizeW(float size_w)
     {
         this.size_w = size_w;
+        this.UpdateButtonSize();
     }
 
     float GetSizeW()
@@ -123,6 +128,7 @@ class MacroButton: Settings
     void SetSizeH(float size_h)
     {
         this.size_h = size_h;
+        this.UpdateButtonSize();
     }
 
     float GetSizeH()
