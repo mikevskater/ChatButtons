@@ -60,11 +60,11 @@ class tZone{
 
     string GetOffsetString(){
         Time::Info offsetTime = GetOffsetTimeInfo();
-        return  (offsetTime.Hour < 10 ? "0" : "") + offsetTime.Hour + ":" + (offsetTime.Minute < 10 ? "0" : "") + offsetTime.Minute + ":" + (offsetTime.Second < 10 ? "0" : "") + offsetTime.Second + " in " + this.name;
+        return  (offsetTime.Hour < 10 ? "0" : "") + offsetTime.Hour + ":" + (offsetTime.Minute < 10 ? "0" : "") + offsetTime.Minute + ":" + (offsetTime.Second < 10 ? "0" : "") + offsetTime.Second + "$> in $2F5" + this.name;
     }
 
     string GetOffsetFormattedString(){
-        return  "00:00:00 in " + this.name;
+        return  "00:00:00$> in $2F5" + this.name;
     }
 }
 class tZones{
@@ -301,11 +301,11 @@ string TimeCommand(int type, const string &in _msg){
     string t;
     string extra;
     if (type == CommandTypes::TimeCommand::LOCAL) {
-        t = Time::FormatString("%H:%M:%S", Time::Stamp);
-        extra = " for me.";
+        t = Time::FormatString("%H:%M:%S", Time::Stamp) + "$>";
+        extra = " for me. $bbb(local time)";
     } else if (type == CommandTypes::TimeCommand::UTC) {
-        t = Time::FormatStringUTC("%H:%M:%S", Time::Stamp);
-        extra = " in UTC.";
+        t = Time::FormatStringUTC("%H:%M:%S", Time::Stamp) + "$>";
+        extra = " in $2F5UTC.";
     } else if (type == CommandTypes::TimeCommand::TIMEZONE){
         msg = msg.Replace("/timezone ", "").Trim();
         tZone zone = zones.GetZone(msg);
@@ -315,7 +315,7 @@ string TimeCommand(int type, const string &in _msg){
         t = zone.GetOffsetString();
         extra = "";
     }
-    return "$<$db0" + Icons::ClockO + "$> It's " + t + extra;
+    return "$<$db0" + Icons::ClockO + "$> It's $<$BBB" + t + extra;
 }
 
 string FormattedTimeCommand(int type, const string &in _msg){
@@ -323,10 +323,10 @@ string FormattedTimeCommand(int type, const string &in _msg){
     string t;
     string extra;
     if (type == CommandTypes::TimeCommand::LOCAL) {
-        t = "00:00:00";
+        t = "00:00:00$>";
         extra = " for me.";
     } else if (type == CommandTypes::TimeCommand::UTC) {
-        t = "00:00:00";
+        t = "00:00:00$>";
         extra = " in UTC.";
     } else if (type == CommandTypes::TimeCommand::TIMEZONE){
         msg = msg.Replace("/timezone ", "").Trim();
@@ -337,5 +337,5 @@ string FormattedTimeCommand(int type, const string &in _msg){
         t = zone.GetOffsetFormattedString();
         extra = "";
     }
-    return "$<$db0" + Icons::ClockO + "$> It's " + t + extra;
+    return "$<$db0" + Icons::ClockO + "$> It's $<$BBB" + t + extra;
 }
