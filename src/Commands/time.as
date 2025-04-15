@@ -310,7 +310,8 @@ string TimeCommand(int type, const string &in _msg){
         msg = msg.Replace("/timezone ", "").Trim();
         tZone zone = zones.GetZone(msg);
         if (zone.code == ""){
-            return "Unknown timezone: " + msg;
+            print("Unknown timezone: " + msg);
+            return "";
         }
         t = zone.GetOffsetString();
         extra = "";
@@ -324,15 +325,16 @@ string FormattedTimeCommand(int type, const string &in _msg){
     string extra;
     if (type == CommandTypes::TimeCommand::LOCAL) {
         t = "00:00:00$>";
-        extra = " for me.";
+        extra = " for me. $bbb(local time)";
     } else if (type == CommandTypes::TimeCommand::UTC) {
         t = "00:00:00$>";
-        extra = " in UTC.";
+        extra = " in $2F5UTC.";
     } else if (type == CommandTypes::TimeCommand::TIMEZONE){
         msg = msg.Replace("/timezone ", "").Trim();
         tZone zone = zones.GetZone(msg);
         if (zone.code == ""){
-            return "Unknown timezone: $F00" + msg;
+            print("Unknown timezone: " + msg);
+            return "";
         }
         t = zone.GetOffsetFormattedString();
         extra = "";
