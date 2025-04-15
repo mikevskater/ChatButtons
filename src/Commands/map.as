@@ -56,63 +56,6 @@ string goalCommand(int type){
     return msg;
 }
 
-#if TMNEXT && DEPENDENCY_NADEOSERVICES
-    // WR Code used from tm-better-chat plugin adjusted to send the message directly to the chat
-    // https://github.com/codecat/tm-better-chat
-	void RunWorldRecordAsync()
-	{
-        auto app = cast<CTrackMania>(GetApp());
-        
-        auto map = app.RootMap;
-        string uid = map.IdName;
-
-		const string audience = "NadeoLiveServices";
-		while (!NadeoServices::IsAuthenticated(audience)) {
-			yield();
-		}
-
-		string url = NadeoServices::BaseURLLive() + "/api/token/leaderboard/group/Personal_Best/map/" + uid + "/top";
-
-		auto req = NadeoServices::Get(audience, url);
-		req.Start();
-		while (!req.Finished()) {
-			yield();
-		}
-
-		auto res = req.String();
-		auto js = Json::Parse(res);
-		if (js.GetType() == Json::Type::Null) {
-			print("Unable to parse world record response: \"" + res + "\"");
-			return;
-		}
-
-		auto tops = js["tops"];
-		if (tops.Length == 0) {
-            print("No leaderboard found for this map.");
-			return;
-		}
-
-		auto records = tops[0]["top"];
-		if (records.Length == 0) {
-            print("No world record found for this map.");
-			return;
-		}
-
-		auto jsWr = records[0];
-		string wrAccountId = jsWr["accountId"];
-		int wrTime = jsWr["score"];
-		string wrDisplayName = NadeoServices::GetDisplayNameAsync(wrAccountId);
-
-		string msg = "$<$db0" + Icons::Bullseye + "$> World Record: $<$bbb" + Time::Format(wrTime) + "$> by $bbb" + wrDisplayName;
-
-        CSmArenaClient@ playground = cast<CSmArenaClient>(cast<CTrackMania>(GetApp()).CurrentPlayground);
-        CGamePlaygroundInterface@ playgroundInterface = cast<CGamePlaygroundInterface>(playground.Interface);
-        playgroundInterface.ChatEntry = msg;
-        print("Macro sent:\n" + msg);
-        return;
-	}
-#endif
-
 string mapInfo(int type){
 	auto app = cast<CTrackMania>(GetApp());
 	auto network = cast<CTrackManiaNetwork>(app.Network);
