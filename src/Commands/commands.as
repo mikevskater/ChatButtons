@@ -116,17 +116,73 @@ class commands
                 switch (acmd)
                 {
                     case CommandTypes::CommandType::GOAL:
-                        return goalCommand(value);
+                        return GoalCommand(value);
                     case CommandTypes::CommandType::TIME:
-                        return timeCommand(value, msg);
+                        return TimeCommand(value, msg);
                     case CommandTypes::CommandType::MAPINFO:
-                        return mapInfo(value);
+                        return MapInfo(value);
                     case CommandTypes::CommandType::ROLL:
-                        return rollCommand(msg);
+                        return RollCommand(msg);
                 }
             }
         }
         return msg;
+    }
+
+    string FormatCommand(const string &in  msg)
+    {
+        string formattedMessage = msg;
+        bool isCommand = false;
+        for (uint i = 0; i < availableCommands.Length; i++)
+        {
+            string cmd = availableCommands[i]["name"];
+            if (msg.StartsWith(cmd))
+            {
+                int acmd = availableCommands[i]["type"];
+                int value = availableCommands[i]["value"];
+                switch (acmd)
+                {
+                    case CommandTypes::CommandType::GOAL:
+                        formattedMessage = FormattedGoalCommand(value);
+                        isCommand = true;
+                        break;
+                    case CommandTypes::CommandType::TIME:
+                        formattedMessage = FormattedTimeCommand(value, msg);
+                        isCommand = true;
+                        break;
+                    case CommandTypes::CommandType::MAPINFO:
+                        formattedMessage = FormattedMapInfo(value);
+                        isCommand = true;
+                        break;
+                    case CommandTypes::CommandType::ROLL:
+                        formattedMessage = FormattedRollCommand(msg);
+                        isCommand = true;
+                        break;
+                }
+                if (isCommand)
+                {
+                    break;
+                }
+            }
+        }
+        if (!isCommand)
+        {
+            formattedMessage = msg;
+        }
+        return formattedMessage.Replace("$", "\\$");
+    }
+
+    bool IsCommand(const string &in  msg)
+    {
+        for (uint i = 0; i < availableCommands.Length; i++)
+        {
+            string cmd = availableCommands[i]["name"];
+            if (msg.StartsWith(cmd))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

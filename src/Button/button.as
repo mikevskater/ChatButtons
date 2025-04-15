@@ -151,6 +151,10 @@ class MacroButton: Settings
         return label_text;
     }
 
+    string GetFormattedText(){
+        return global_commands.FormatCommand(this.macro_text);
+    }
+
     void SetColorBg(vec4 color_bg)
     {
         this.color_bg = color_bg;
@@ -437,7 +441,7 @@ class MacroButton: Settings
         // Handle UI settings
         bool can_click = this.checkIfButtonCanPressed();
         float border_opacity = 0.1;
-
+        
         vec4 bg_color = 
             can_click 
                 ? this.color_bg 
@@ -462,6 +466,17 @@ class MacroButton: Settings
             can_click 
                 ? this.color_fg_hover 
                 : vec4(this.color_fg_hover.x * 0.5, this.color_fg_hover.y * 0.5, this.color_fg_hover.z * 0.5, this.color_fg_hover.w * 0.05);
+
+        //vec4 test = vec4(0.1,0.1,0.1,0.8);
+        //print("test: " + tostring(test));
+        //print("bg_color: " + tostring(bg_color));
+        //print("output test: " + tostring(bg_color*test));
+        //test = vec4(1.,1.,1.,0.);
+        //print("test: " + tostring(test));
+        //print("bg_color: " + tostring(bg_color));
+        //print("output test: " + tostring(test-bg_color));
+
+
 
         nvg::FontSize(this.label_text_size);
         nvg::TextAlign(18);

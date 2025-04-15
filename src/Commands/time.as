@@ -30,7 +30,7 @@ class tZone{
         offsetString = offsetString + hours + ":" + (minutes.Length == 1 ? "0" : "") + minutes;
         return offsetString;
     }
-    Time::Info getOffsetTimeInfo(){
+    Time::Info GetOffsetTimeInfo(){
         Time::Info now = Time::ParseUTC(Time::Stamp);
         int hours = Math::Abs(int(offset));
         int minutes = int((offset - int(offset)) * 60);
@@ -58,9 +58,13 @@ class tZone{
         return now;
     }
 
-    string getOffsetString(){
-        Time::Info offsetTime = getOffsetTimeInfo();
+    string GetOffsetString(){
+        Time::Info offsetTime = GetOffsetTimeInfo();
         return  (offsetTime.Hour < 10 ? "0" : "") + offsetTime.Hour + ":" + (offsetTime.Minute < 10 ? "0" : "") + offsetTime.Minute + ":" + (offsetTime.Second < 10 ? "0" : "") + offsetTime.Second + " in " + this.name;
+    }
+
+    string GetOffsetFormattedString(){
+        return  "00:00:00 in " + this.name;
     }
 }
 class tZones{
@@ -278,7 +282,7 @@ class tZones{
         timeZones.InsertLast(zone);
     }
 
-    tZone getZone(const string &in name){
+    tZone GetZone(const string &in name){
         for (uint i = 0; i < timeZones.Length; i++){
             if (timeZones[i].code == name.ToUpper().Trim()){
                 return timeZones[i];
@@ -292,7 +296,7 @@ class tZones{
 }
 tZones zones = tZones();
 
-string timeCommand(int type, const string &in _msg){
+string TimeCommand(int type, const string &in _msg){
     string msg = _msg;
     string t;
     string extra;
@@ -304,11 +308,33 @@ string timeCommand(int type, const string &in _msg){
         extra = " in UTC.";
     } else if (type == CommandTypes::TimeCommand::TIMEZONE){
         msg = msg.Replace("/timezone ", "").Trim();
-        tZone zone = zones.getZone(msg);
+        tZone zone = zones.GetZone(msg);
         if (zone.code == ""){
             return "Unknown timezone: " + msg;
         }
-        t = zone.getOffsetString();
+        t = zone.GetOffsetString();
+        extra = "";
+    }
+    return "$<$db0" + Icons::ClockO + "$> It's " + t + extra;
+}
+
+string FormattedTimeCommand(int type, const string &in _msg){
+    string msg = _msg;
+    string t;
+    string extra;
+    if (type == CommandTypes::TimeCommand::LOCAL) {
+        t = "00:00:00";
+        extra = " for me.";
+    } else if (type == CommandTypes::TimeCommand::UTC) {
+        t = "00:00:00";
+        extra = " in UTC.";
+    } else if (type == CommandTypes::TimeCommand::TIMEZONE){
+        msg = msg.Replace("/timezone ", "").Trim();
+        tZone zone = zones.GetZone(msg);
+        if (zone.code == ""){
+            return "Unknown timezone: $F00" + msg;
+        }
+        t = zone.GetOffsetFormattedString();
         extra = "";
     }
     return "$<$db0" + Icons::ClockO + "$> It's " + t + extra;

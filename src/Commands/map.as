@@ -1,6 +1,6 @@
 const array<string> medalColors = {"$444","$964","$899","$db4","$071","$0f1","$964","$899","$db4","$0ff"};
 
-string goalCommand(int type){
+string GoalCommand(int type){
 	auto app = cast<CTrackMania>(GetApp());
 	auto network = cast<CTrackManiaNetwork>(app.Network);
     
@@ -56,7 +56,7 @@ string goalCommand(int type){
     return msg;
 }
 
-string mapInfo(int type){
+string MapInfo(int type){
 	auto app = cast<CTrackMania>(GetApp());
 	auto network = cast<CTrackManiaNetwork>(app.Network);
     
@@ -70,6 +70,29 @@ string mapInfo(int type){
         case 2: return "$<$db0" + Icons::Map + "$> Map Author: $bbb" + Text::StripFormatCodes(map.MapInfo.AuthorNickName);
         case 3: return "$<$db0" + Icons::Map + "$> Map Name and ID: $bbb" + map.MapInfo.Name + " ("+ uid+ ")";
         case 4: return "$<$db0" + Icons::Map + "$> TMIO Link: $l[https://trackmania.io/#/leaderboard/" + uid + "]" + Text::StripFormatCodes(map.MapInfo.Name) + "$l";        
+    }
+    return "";
+}
+
+string FormattedGoalCommand(int type){
+    switch (type) {
+        case 0: return "$<$964" + Icons::Trophy + "$> Bronze Medal: $bbb00:00.000";
+        case 1: return "$<$899" + Icons::Trophy + "$> Silver Medal: $bbb00:00.000";
+        case 2: return "$<$db4" + Icons::Trophy + "$> Gold Medal: $bbb00:00.000";
+        case 3: return "$<$071" + Icons::Trophy + "$> Author Medal: $bbb00:00.000";
+        case 4: return "$<$db0" + Icons::Bullseye + "$> World Record: $<$bbb00:00.000$> by $bbbPlayerName";
+        case 5: return "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb00:00.000$> (No Finish)";
+    }
+    return "";
+}
+
+string FormattedMapInfo(int type){
+    switch (type) {
+        case 0: return "$<$db0" + Icons::Map + "$> Map ID: $bbb00000000";
+        case 1: return "$<$db0" + Icons::Map + "$> Map Name: $bbbMapName";
+        case 2: return "$<$db0" + Icons::Map + "$> Map Author: $bbbAuthorName";
+        case 3: return "$<$db0" + Icons::Map + "$> Map Name and ID: $bbbMapName (0000000000)";
+        case 4: return "$<$db0" + Icons::Map + "$> TMIO Link: $l[https://trackmania.io/#/leaderboard/0000000000]$l";
     }
     return "";
 }

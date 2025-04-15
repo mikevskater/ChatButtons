@@ -236,6 +236,9 @@ namespace UI_Settings{
             UI::Text("Macro Text: ");        
             UI::SetItemTooltip("See the 'Nadeo Chat Formats' tab for more information on text formatting.\nTo send a command, refrence the table below.");     
 
+            UI::Text("Message Preview: ");
+            UI::SetItemTooltip("Example of the formatted message.");
+
             UI::TableNextColumn();
             
             UI::SetNextItemWidth(480);
@@ -246,6 +249,10 @@ namespace UI_Settings{
             current_button_macro_text = UI::InputText("##macro_text", have_buttons ? curButton.GetMacroText() : "Please press the + button.");  
             UI::SetItemTooltip("See the 'Nadeo Chat Formats' tab for more information on text formatting.\nTo send a command, refrence the table below.");     
             
+            UI::SetNextItemWidth(480);
+            UI::Text(have_buttons ? curButton.GetFormattedText() : "");
+            UI::SetItemTooltip("Example of the formatted message.");
+
             UI::EndDisabled();
             UI::EndTable();
         }

@@ -1,6 +1,6 @@
 
 
-string rollCommand(const string &in msg)
+string RollCommand(const string &in msg)
 {
     string cmd = msg.Replace("/roll ", "").Trim();
     print("RollCommand: " + cmd);
@@ -26,5 +26,15 @@ string rollCommand(const string &in msg)
     return "$bbbRolling a number between 1 and " + tostring(roll) + ": $" + R + G + B + output;
 }
 
-
+string FormattedRollCommand(const string &in msg)
+{
+    string cmd = msg.Replace("/roll ", "").Trim();
+    int roll;
+    bool isValid = Text::TryParseInt(cmd, roll);
+    if (!isValid)
+    {
+        return "Invalid roll amount $F00" + cmd;
+    }
+    return "$bbbRolling a number between 1 and " + tostring(roll) + ": $0F0" + roll;
+}
     
