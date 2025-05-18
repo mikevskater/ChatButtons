@@ -475,15 +475,15 @@ namespace UI_Settings{
         UI::TextWrapped(
             "All styling is represented in the form of of special control characters that determine the style of the succeeding text.\n"
             "For text formatting like bold or italic text, they have one control character, whereas colors have 3 (see below). Each control character must have a $ in before it.\n"
-            "To give you a few examples, the control character o will format the text as bold and the control character i would format the text in italic. So you would write $o for \\$obold\\$z and $i for \\$iitalic\\$z and then the text to be formatted.\n"
+            "To give you a few examples, the control character o will format the text as bold and the control character i would format the text in italic. So you would write $o for \\$<\\$obold\\$> and $i for \\$<\\\$iitalic\\$> and then the text to be formatted.\n"
             "\n"
             "Example:\n"
-            "$oTrackmania would become \\$oTrackmania\\$z\n"
-            "$iTrackmania would become \\$iTrackmania\\$z\n"
+            "$oTrackmania would become \\$<\\\$oTrackmania\\$>\n"
+            "$iTrackmania would become \\$<\\\$iTrackmania\\$>\n"
             "\n"
-            "You can also combine them, so $o$iTrackmania would be bold and italic: \\$o\\$iTrackmania\\$z\n"
+            "You can also combine them, so $o$iTrackmania would be bold and italic: \\$<\\$o\\$iTrackmania\\$>\n"
             "A more complex example of using them at multiple places in the text for different formatting at different places would be:\n"
-            "$oThis$z is $o$iTrackmania! would become: \\$oThis\\$z is \\$o\\$iTrackmania!\\$z\n"
+            "$oThis$z is $o$iTrackmania! would become: \\$<\\$oThis\\$> is \\$<\\$o\\$iTrackmania!\\$>\n"
         );
         UI::SeparatorText("Font Formatting");
         if (UI::BeginTable("Font Formatting", 3, UI::TableFlags::BordersInnerH | UI::TableFlags::SizingStretchProp))
@@ -518,10 +518,10 @@ namespace UI_Settings{
         UI::TextWrapped(
             "If you have never heard about the hexadecimal number system (hex for short), you may be wondering what on earth Im talking about.\nYou are normally used to the decimal number system, where each digit is from 0 to 9 and any other number is a compound of these digits.\nBut in hexadecimal you have 15 digits instead of 10. In hex each digit is from 0 to F (0123456789ABCDEF) with F representing 15.\n"
             "\n"
-            "In Trackmania each color is represented by three hexadecimal digits RGB with R being the \\$F00red\\$z channel, G is the \\$0F0green\\$z channel and B is the \\$00Fblue\\$z channel.\nSo the hexadecimal digit would then represent the strength of its color channel.\n"
+            "In Trackmania each color is represented by three hexadecimal digits RGB with R being the \\$<\\$F00red\\$> channel, G is the \\$<\\$0F0green\\$> channel and B is the \\$<\\$00Fblue\\$> channel.\nSo the hexadecimal digit would then represent the strength of its color channel.\n"
             "\n"
-            "For example, in the color code F00, \\$F00Red\\$z would be strength F (15) and \\$0F0green\\$z and \\$00Fblue\\$z would be 0. This would be a perfect \\$F00red\\$z color.\nBut in the color code 0F0 \\$F00red\\$z would be 0, and \\$0F0green\\$z would be F(15) and \\$00Fblue\\$z 0. This would be a perfect \\$0F0green\\$z.\n"
-            "Another example would be FF0, here we have a perfect \\$F00red\\$z and a perfect \\$0F0green\\$z combined. Mixing these two colors, \\$F00red\\$z and \\$0F0green\\$z, would become \\$FF0yellow\\$z.\nYou can also reduce the strength of the channels, for example 660 would become a \\$660dark green\\$z color.\n"
+            "For example, in the color code F00, \\$<\\$F00Red\\$> would be strength F (15) and \\$<\\$0F0green\\$> and \\$<\\$00Fblue\\$> would be 0. This would be a perfect \\$<\\$F00red\\$> color.\nBut in the color code 0F0 \\$<\\$F00red\\$> would be 0, and \\$<\\$0F0green\\$> would be F(15) and \\$<\\$00Fblue\\$> 0. This would be a perfect \\$<\\$0F0green\\$>.\n"
+            "Another example would be FF0, here we have a perfect \\$<\\$F00red\\$> and a perfect \\$<\\$0F0green\\$> combined. Mixing these two colors, \\$<\\$F00red\\$> and \\$<\\$0F0green\\$>, would become \\$<\\$FF0yellow\\$>.\nYou can also reduce the strength of the channels, for example 660 would become a \\$<\\$660dark green\\$> color.\n"
         );
         UI::SeparatorText("Color Picker");
 

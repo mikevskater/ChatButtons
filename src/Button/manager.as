@@ -161,9 +161,41 @@ class ButtonManager{
         }
         return is_hovering; // Return false if mouse is not over any button
     }
+    bool canRender(){
+        // Check if playground is null
+        
+		if (!UI::IsRendering()) {
+			return false;
+		}
+
+        CTrackMania@ app = cast<CTrackMania>(GetApp());
+
+        CSmArenaClient@ playground = cast<CSmArenaClient>(app.CurrentPlayground);
+        if (playground is null) {
+            //print("Playground is null");
+            return false;
+        }        	
+
+		CGameNetwork@ network = cast<CGameNetwork>(app.Network);
+        if (network is null) {
+            //print("Network is null");
+            return false;
+        }
+		CGameCtnNetServerInfo@ server = cast<CGameCtnNetServerInfo>(network.ServerInfo);
+		if (server is null) {
+            //print("Server is null");
+			return false;
+		}
+        if (server.ServerName == "" && server.ServerLogin == "") {
+            //print("Not a server");
+            return false;
+        }
+        return true;
+    }
+
     void MainRenderButtons(){
         CSmArenaClient@ playground = cast<CSmArenaClient>(cast<CTrackMania>(GetApp()).CurrentPlayground);
-        if (playground is null) {
+        if (!canRender()) {
             //print("Playground is null");
             return;
         }
@@ -214,6 +246,7 @@ class ButtonManager{
             button.From_Json(data[i]);
             AddButton(button);
         }
+        print("Loaded " + buttons.Length + " buttons");
     }
 }
 

@@ -399,47 +399,65 @@ class MacroButton: Settings
         if (Meta::IsDeveloperMode()){            
             print("Loading Button From_Json: " + Json::Write(data));
         }
-        this.pos_x = data["x"];
-        this.pos_y = data["y"];
-        this.size_w = data["w"];
-        this.size_h = data["h"];
-        this.label_text = data["l"];
-        this.macro_text = data["m"];
-        this.label_text_size = data["ls"];
+        
+        Json::Value d;
         float x;
         float y;
         float z;
-        float w;
-        Json::Value d;
+        float w;        
+        string l;
+        string m;
+        float ts;
+
+        x = data.Get("x");
+        this.pos_x =  x;
+        y = data.Get("y");
+        this.pos_y = y;
+        w = data.Get("w");
+        this.size_w = w;
+        z = data.Get("h");
+        this.size_h = z;
+        l = data.Get("l");
+        this.label_text = l;
+        m = data.Get("m");
+        this.macro_text = m;
+        ts = data.Get("ls");
+        this.label_text_size = ts;        
 
         d = data.Get("bg");
-        x = d["x"];
-        y = d["y"];
-        z = d["z"];
-        w = d["w"];
+        x = d.Get("x");
+        y = d.Get("y");
+        z = d.Get("z");
+        w = d.Get("w");
         this.color_bg = vec4(x,y,z,w);
 
-        d = data["fg"];
-        x = d["x"];
-        y = d["y"];
-        z = d["z"];
-        w = d["w"];
+        d = data.Get("fg");
+        x = d.Get("x");
+        y = d.Get("y");
+        z = d.Get("z");
+        w = d.Get("w");
         this.color_fg = vec4(x,y,z,w);
 
-        d = data["bg_h"];
-        x = d["x"];
-        y = d["y"];
-        z = d["z"];
-        w = d["w"];       
+        d = data.Get("bg_h");
+        x = d.Get("x");
+        y = d.Get("y");
+        z = d.Get("z");
+        w = d.Get("w");  
         this.color_bg_hover = vec4(x,y,z,w);
         
-        d = data["fg_h"];
-        x = d["x"];
-        y = d["y"];
-        z = d["z"];
-        w = d["w"];
+        d = data.Get("fg_h");
+        x = d.Get("x");
+        y = d.Get("y");
+        z = d.Get("z");
+        w = d.Get("w");
         this.color_fg_hover = vec4(x,y,z,w);
-        this.UpdateButtonSize();
+        //this.UpdateButtonSize();        
+
+        if (Meta::IsDeveloperMode()){
+            print("Button loaded: " + this.To_String());
+        } else {
+            print("Button loaded: " + this.label_text);
+        }
     }
 
     void Render()
