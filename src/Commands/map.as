@@ -38,7 +38,7 @@ string GoalCommand(int type){
             pbmedal = scoreMgr.Map_GetMedal(userId, map.MapInfo.MapUid, "PersonalBest", "", "TimeAttack", "");
         }
         if (pbmedal == 0) {
-            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> (No " + pbtime <= 0 ? "Finish" : "Medal" + ")";
+            msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> (No " + (pbtime <= 0 ? "Finish" : "Medal") + ")";
         } else {
             msg = "$<$db0" + Icons::Bullseye + "$> Personal Best: $<$bbb" + Time::Format(pbtime) + "$> ($<" + medalColors[pbmedal] + Icons::Circle + "$>)";
         }
