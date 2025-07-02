@@ -5,6 +5,7 @@ namespace CommandTypes{
         , TIME = 1
         , MAPINFO = 2
         , ROLL = 3
+        , MAP_CONTROL = 4
     }
 
     enum GoalCommand{
@@ -28,6 +29,13 @@ namespace CommandTypes{
         AUTHOR = 2,
         MAP = 3,
         TMIO = 4
+    }
+
+    enum MapControlCommand{
+        RESTART = 0,
+        NEXT = 1,
+        VOTEYES = 2,
+        VOTENO = 3
     }
 }
 
@@ -54,6 +62,11 @@ class commands
         addCommand("/map", "Tell the Map Name and ID to the room.", CommandTypes::CommandType::MAPINFO, CommandTypes::MapInfo::MAP);
         addCommand("/tmio", "Tell the Map TMIO link to the room.", CommandTypes::CommandType::MAPINFO, CommandTypes::MapInfo::TMIO);
         
+        // New Map Control Commands
+        addCommand("/restart", "Request to restart the current map.", CommandTypes::CommandType::MAP_CONTROL, CommandTypes::MapControlCommand::RESTART);
+        addCommand("/next", "Request to skip to the next map.", CommandTypes::CommandType::MAP_CONTROL, CommandTypes::MapControlCommand::NEXT);
+        addCommand("/vote_yes", "Vote yes for the current map control action.", CommandTypes::CommandType::MAP_CONTROL, CommandTypes::MapControlCommand::VOTEYES);
+        addCommand("/vote_no", "Vote no for the current map control action.", CommandTypes::CommandType::MAP_CONTROL, CommandTypes::MapControlCommand::VOTENO);
     }
 
     void addCommand(const string &in name, const string &in description, const string &in  type, const string &in  value)
@@ -123,6 +136,8 @@ class commands
                         return MapInfo(value);
                     case CommandTypes::CommandType::ROLL:
                         return RollCommand(msg);
+                    case CommandTypes::CommandType::MAP_CONTROL:
+                        return MapControlCommand(value);
                 }
             }
         }
@@ -153,6 +168,9 @@ class commands
                         break;
                     case CommandTypes::CommandType::ROLL:
                         formattedMessage = FormattedRollCommand(msg);
+                        break;
+                    case CommandTypes::CommandType::MAP_CONTROL:
+                        formattedMessage = FormattedMapControlCommand(value);
                         break;
                 }
                 isCommand = true;
