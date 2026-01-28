@@ -164,7 +164,7 @@ class ButtonManager{
     bool canRender(){
         // Check if playground is null
         
-		if (!UI::IsRendering()) {
+		if (!UI::IsRendering() || UI::IsGameUIVisible()) {
 			return false;
 		}
 
@@ -194,12 +194,9 @@ class ButtonManager{
     }
 
     void MainRenderButtons(){
-        CSmArenaClient@ playground = cast<CSmArenaClient>(cast<CTrackMania>(GetApp()).CurrentPlayground);
-        if (!canRender()) {
-            //print("Playground is null");
-            return;
+        if (canRender()) {
+            RenderButtons(); // Render buttons            
         }
-        RenderButtons(); // Render buttons
     }
     void RenderButtons(){
         // Render buttons
