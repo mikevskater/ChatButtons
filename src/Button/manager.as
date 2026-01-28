@@ -164,7 +164,7 @@ class ButtonManager{
     bool canRender(){
         // Check if playground is null
         
-		if (!UI::IsRendering() || UI::IsGameUIVisible()) {
+		if (!UI::IsRendering() || !UI::IsGameUIVisible()) {
 			return false;
 		}
 
