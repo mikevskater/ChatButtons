@@ -1,5 +1,5 @@
 JsonFile BUTTON_STORAGE_FILE = JsonFile("ButtonStorage"); // File to store button data
-vec2 window_size = vec2(Draw::GetWidth(), Draw::GetHeight()); // Window size
+vec2 window_size = vec2(Display::GetWidth(), Display::GetHeight()); // Window size
 
 //MacroButton @current_hovered_button; // Currently hovered button
 bool is_hovering_button = false; // Flag to check if mouse is hovering over a button

@@ -44,8 +44,8 @@ class ButtonManager{
 
     void PlaceButton(MacroButton@ button){
         // Place button on screen
-        float x = Draw::GetWidth() * startspot_x; // Get x position
-        float y = Draw::GetHeight() * startspot_y; // Get y position
+        float x = Display::GetWidth() * startspot_x; // Get x position
+        float y = Display::GetHeight() * startspot_y; // Get y position
         button.SetPos(x, y); // Set button position
         bool button_overlap = true;
         while(button_overlap){
@@ -54,8 +54,8 @@ class ButtonManager{
                 if(buttons[i].IsOverlapping(button)){
                     button_overlap = true; // Set overlap flag if button overlaps
                     x = (buttons[i].GetPosX() + buttons[i].GetSizeW()) + 10; // Get new x position
-                    if (x + button.GetSizeW() > Draw::GetWidth()){ // Check if button goes out of bounds
-                        x = Draw::GetWidth() * startspot_x; // Reset x position
+                    if (x + button.GetSizeW() > Display::GetWidth()){ // Check if button goes out of bounds
+                        x = Display::GetWidth() * startspot_x; // Reset x position
                         y -= button.GetSizeH() + 10; // Get new y position                    
                     }
                     button.SetPos(x, y); // Set new button position

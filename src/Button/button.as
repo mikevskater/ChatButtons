@@ -35,7 +35,7 @@ class MacroButton: Settings
 
     void AdjPosX(float pos_x)
     {
-        int window_width = Draw::GetWidth();
+        int window_width = Display::GetWidth();
         if (this.pos_x + pos_x + this.size_w > window_width) {
             // Figure out how much we can move the button to the edge of the screen
             float max_possible_move = window_width - this.size_w;
@@ -95,7 +95,7 @@ class MacroButton: Settings
 
     void AdjPosY(float pos_y)
     {
-        int window_height = Draw::GetHeight();
+        int window_height = Display::GetHeight();
         if (this.pos_y + pos_y + this.size_h > window_height) {
             // Figure out how much we can move the button to the edge of the screen
             float max_possible_move = window_height - this.size_h;

@@ -41,8 +41,8 @@ namespace UI_Settings{
 
         is_button_settings_open = true;
         // Get the window size
-        window_size.x = Draw::GetWidth();
-        window_size.y = Draw::GetHeight();        
+        window_size.x = Display::GetWidth();
+        window_size.y = Display::GetHeight();        
 
         bool have_buttons = true;
         if (buttons.Length == 0) {
