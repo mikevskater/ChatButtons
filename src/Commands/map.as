@@ -15,7 +15,7 @@ string GoalCommand(int type){
 
 #if TMNEXT && DEPENDENCY_NADEOSERVICES
     if (type == 4) {
-        startnew(CoroutineFunc(RunWorldRecordAsync));
+        startnew(RunWorldRecordAsync);
         return "";
     }
 #endif
