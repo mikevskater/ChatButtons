@@ -2,7 +2,8 @@
 name = "Custom Chat Buttons"
 author = "MikeVSkater"
 category = "Utilities"
-version = "1.1.3"
+version = "1.1.4"
+siteid = 702
 
 [script]
 optional_dependencies = [ "NadeoServices" ]
